@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CancunPeptide | Research Peptides Delivered to Your Hotel in 2 Hours</title>
+  <meta name="description" content="CancunPeptide — research-grade peptides delivered to your Cancún hotel lobby in 2 hours. Pay cash or card on delivery. Purity ≥99% HPLC, COA per lot. For research use only.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Age gate: without +18 verification, back to the gate
+    if (sessionStorage.getItem("cancunpeptide_age_ok") !== "1") {
+      window.location.replace("index.html");
+    }
+  </script>
+</head>
+<body>
+
+  <!-- ====== Top bar ====== -->
+  <header class="hud-header" id="top">
+    <div class="hud-status">
+      <span class="blink-dot" aria-hidden="true"></span>
+      <span class="mono">CANCÚN · MÉXICO · EN</span>
+    </div>
+    <a class="logo" href="#top" aria-label="CancunPeptide home">
+      CANCUN<span class="logo-mx">PEPTIDE</span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#catalogo">Catalog</a>
+      <a href="#delivery">Delivery</a>
+      <a href="#quality">Quality</a>
+      <a href="#contacto">Contact</a>
+      <button class="cart-open mono" type="button" aria-label="View order">
+        ORDER <span class="cart-count">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ====== Hero ====== -->
+  <section class="hero">
+    <div class="hero-bg" role="img" aria-label="Turquoise Caribbean sea in Cancún"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="mono hero-kicker">// ON VACATION? WE'VE GOT YOU COVERED</p>
+      <h1>RESEARCH PEPTIDES<br><span class="red-glow">AT YOUR HOTEL DOOR<br>IN 2 HOURS</span></h1>
+      <p class="hero-sub">
+        Why pay US prices and wait a week for shipping? Order research-grade peptides
+        with ≥99% HPLC purity and lot-verified COA — delivered to your Cancún hotel
+        lobby or Airbnb the same day. Pay cash or card when it arrives.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#catalogo">▸ Browse catalog</a>
+        <a class="btn btn-ghost" href="#delivery">How delivery works</a>
+      </div>
+      <ul class="hero-stats mono">
+        <li><strong>2 hrs</strong> hotel delivery</li>
+        <li><strong>$10</strong> flat fee USD</li>
+        <li><strong>≥99%</strong> purity HPLC</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====== Legal notice ====== -->
+  <aside class="legal-banner mono" role="note">
+    ⚠ FOR RESEARCH USE ONLY — Not a drug, supplement or food.
+    Not intended for human consumption, diagnosis or treatment.
+  </aside>
+
+  <main>
+    <!-- ====== Catalog ====== -->
+    <section id="catalogo" class="catalog">
+      <div class="section-head">
+        <p class="mono section-kicker">// FULL CATALOG: <span id="product-count">28</span> PRODUCTS</p>
+        <h2>CATALOG</h2>
+        <p class="mono catalog-note">*Label design may vary slightly · Prices in USD / MXN</p>
+      </div>
+      <div class="filters mono" id="filters" role="tablist" aria-label="Filter by category"></div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+
+    <!-- ====== Hotel delivery ====== -->
+    <section id="delivery" class="protocol">
+      <div class="section-head">
+        <p class="mono section-kicker">// 2-HOUR DELIVERY SERVICE</p>
+        <h2>HOW HOTEL DELIVERY WORKS</h2>
+      </div>
+      <div class="protocol-grid">
+        <article class="protocol-card">
+          <span class="mono step">STEP_01</span>
+          <h3>Order online</h3>
+          <p>Add products to your order and confirm via WhatsApp. Tell us your hotel name and room number (or Airbnb address in Cancún).</p>
+        </article>
+        <article class="protocol-card">
+          <span class="mono step">STEP_02</span>
+          <h3>We ride to you</h3>
+          <p>Our courier leaves immediately. Delivery to your hotel lobby or Airbnb door in 2 hours or less, anywhere in Cancún's hotel zone or downtown.</p>
+        </article>
+        <article class="protocol-card">
+          <span class="mono step">STEP_03</span>
+          <h3>Pay on arrival</h3>
+          <p>Cash (USD or MXN) or card — your choice, zero prepayment. The flat delivery fee is just $10 USD no matter the order size.</p>
+        </article>
+        <article class="protocol-card">
+          <span class="mono step">STEP_04</span>
+          <h3>Discreet & cold-safe</h3>
+          <p>Unbranded, discreet packaging with cold protection. Your concierge can receive it if you're at the beach — we'll text you a photo of the handoff.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====== Quality ====== -->
+    <section id="quality" class="trust">
+      <div class="section-head">
+        <p class="mono section-kicker">// RESEARCH GRADE</p>
+        <h2>WHY CANCUNPEPTIDE</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-item mono">
+          <span class="trust-icon">▣</span>
+          <h3>Verified COA</h3>
+          <p>Every vial is lot-traceable to its Certificate of Analysis. Ask for your lot's COA before you buy.</p>
+        </div>
+        <div class="trust-item mono">
+          <span class="trust-icon">▣</span>
+          <h3>US-beating prices</h3>
+          <p>Best sellers priced below the US online average — dual USD/MXN pricing, no surprises.</p>
+        </div>
+        <div class="trust-item mono">
+          <span class="trust-icon">▣</span>
+          <h3>30-day guarantee</h3>
+          <p>If a product arrives compromised, we replace it or refund you. Even after you fly back home.</p>
+        </div>
+        <div class="trust-item mono">
+          <span class="trust-icon">▣</span>
+          <h3>Real humans, English OK</h3>
+          <p>WhatsApp support in English and Spanish. We answer fast — we're on Cancún time.</p>
+        </div>
+      </div>
+      <figure class="coa-figure">
+        <img src="img/coa.jpg" alt="Holographic visualization of a laboratory certificate of analysis" loading="lazy">
+        <figcaption class="mono">LOT ANALYSIS // COA + HPLC + MS</figcaption>
+      </figure>
+    </section>
+
+    <!-- ====== Contact ====== -->
+    <section id="contacto" class="contact">
+      <div class="section-head">
+        <p class="mono section-kicker">// TALK TO US</p>
+        <h2>CONTACT</h2>
+      </div>
+      <div class="contact-card">
+        <p class="mono contact-status"><span class="blink-dot"></span> ACTIVE CHANNEL — WHATSAPP</p>
+        <p>
+          Orders, quotes and COA requests are handled on WhatsApp — English and Spanish.
+          Average response time under 15 minutes, 8 am to 10 pm Cancún time.
+        </p>
+        <ul class="mono contact-pending">
+          <li>WHATSAPP: <em>+52 951 638 3849</em></li>
+          <li>DELIVERY: <em>Hotel zone & downtown Cancún — 2 hrs, $10 USD</em></li>
+        </ul>
+        <a class="btn btn-primary" href="https://wa.me/529516383849?text=Hi%20CANCUNPEPTIDE%2C%20I%27m%20staying%20in%20Canc%C3%BAn%20and%20I%27d%20like%20to%20order" target="_blank" rel="noopener">▸ Message on WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== Footer ====== -->
+  <footer class="footer mono">
+    <p class="footer-brand">CANCUN<span>PEPTIDE</span> — research peptides at your hotel door</p>
+    <p class="footer-legal">
+      All compounds are offered exclusively for in-vitro scientific research.
+      They are not approved as a drug, supplement or food, and are not intended
+      for human consumption, diagnosis or treatment.
+    </p>
+    <p class="footer-copy">© 2026 CANCUNPEPTIDE · Prices in USD & MXN · Catalog subject to lot availability</p>
+  </footer>
+
+  <!-- ====== Product sheet modal ====== -->
+  <div class="modal" id="product-modal" role="dialog" aria-modal="true" aria-label="Product details">
+    <div class="modal-box">
+      <button class="modal-close mono" type="button" aria-label="Close">✕ CLOSE</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ====== Cart / order ====== -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Your order">
+    <div class="cart-head">
+      <h3 class="mono">// YOUR_ORDER</h3>
+      <button class="cart-close mono" id="cart-close" type="button" aria-label="Close order">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-foot">
+      <div class="cart-total-row mono cart-sub-row">
+        <span>SUBTOTAL</span>
+        <span id="cart-total">—</span>
+      </div>
+      <div class="cart-total-row mono cart-sub-row">
+        <span>HOTEL DELIVERY (2 HRS)</span>
+        <span id="cart-shipping">—</span>
+      </div>
+      <div class="cart-total-row mono">
+        <span>TOTAL</span>
+        <span id="cart-grand">—</span>
+      </div>
+      <button class="btn btn-primary cart-checkout" id="cart-whatsapp" type="button">▸ Confirm order on WhatsApp</button>
+      <div class="card-brands cart-brands" aria-label="Accepted payment methods">
+        <span class="brand-badge brand-visa">VISA</span>
+        <span class="brand-badge brand-mc"><span class="mc-c1"></span><span class="mc-c2"></span></span>
+        <span class="brand-badge brand-amex">AMEX</span>
+        <span class="brand-badge brand-cash">CASH</span>
+      </div>
+      <p class="mono cart-note">// Pay on delivery at your hotel: cash (USD/MXN) or card.</p>
+    </div>
+  </aside>
+
+  <script src="js/data.js"></script>
+  <script src="js/stock.js"></script>
+  <script src="js/stripe-config.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

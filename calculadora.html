@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Reconstitución | PEPTINATOR MX</title>
+  <meta name="description" content="Calculadora de reconstitución de péptidos: concentración, unidades a extraer y dosis por vial. Herramienta de laboratorio — solo uso en investigación.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .calc-wrap { max-width: 980px; margin: 0 auto; }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+    @media (max-width: 760px) { .calc-grid { grid-template-columns: 1fr; } }
+    .calc-card {
+      background: var(--bg-card); border: 1px solid #26262e; padding: 1.8rem;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    }
+    .calc-field { margin-bottom: 1.1rem; }
+    .calc-field label { display: block; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--text-dim); margin-bottom: 0.4rem; text-transform: uppercase; }
+    .calc-field input, .calc-field select {
+      width: 100%; background: var(--bg-panel); border: 1px solid var(--chrome-3); color: var(--chrome-1);
+      font-family: var(--font-mono); font-size: 1rem; padding: 0.65rem 0.8rem; outline: none;
+    }
+    .calc-field input:focus, .calc-field select:focus { border-color: var(--red); }
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.4rem; }
+    .res-item { background: var(--bg-panel); border: 1px solid #26262e; padding: 0.9rem 1rem; }
+    .res-item span { display: block; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.3rem; }
+    .res-item strong { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; color: var(--red); text-shadow: 0 0 12px var(--red-glow); }
+    .syr { position: relative; height: 54px; background: var(--bg-panel); border: 1px solid var(--chrome-3); margin: 1.6rem 0 0.6rem; }
+    .syr-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, rgba(255,26,26,0.25), rgba(255,26,26,0.55)); transition: width 0.3s; }
+    .syr-fill.over { background: repeating-linear-gradient(-45deg, rgba(255,26,26,0.5) 0 8px, rgba(163,0,0,0.5) 8px 16px); }
+    .syr-marker { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--red); box-shadow: 0 0 10px var(--red-glow); transition: left 0.3s; }
+    .syr-ticks { position: relative; height: 18px; }
+    .syr-tick { position: absolute; top: 0; font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-dim); transform: translateX(-50%); }
+    .syr-tick::before { content: ""; position: absolute; top: -8px; left: 50%; width: 1px; height: 6px; background: var(--chrome-3); }
+    .calc-saved-empty { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.1em; }
+    .calc-saved-item { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; padding: 0.6rem 0; border-bottom: 1px dashed #2c2c34; font-size: 0.9rem; color: var(--text-dim); }
+    .calc-saved-item strong { color: var(--chrome-1); }
+    .calc-saved-item button { background: none; border: none; color: var(--chrome-3); cursor: pointer; font-size: 0.85rem; }
+    .calc-saved-item button:hover { color: var(--red); }
+    .calc-aviso { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text-dim); margin-top: 1.2rem; }
+  </style>
+  <script>
+    if (sessionStorage.getItem("peptinator_age_ok") !== "1") {
+      window.location.replace("index.html");
+    }
+  </script>
+</head>
+<body>
+
+  <header class="hud-header" id="top">
+    <div class="hud-status">
+      <span class="blink-dot" aria-hidden="true"></span>
+      <span class="mono">SYSTEM ONLINE · MÉXICO</span>
+    </div>
+    <a class="logo" href="sitio.html">PEPTINATOR<span class="logo-mx">MX</span></a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="sitio.html#catalogo">Catálogo</a>
+      <a href="calculadora.html">Calculadora</a>
+      <a href="sitio.html#pago">Pago</a>
+      <a href="sitio.html#contacto">Contacto</a>
+      <button class="cart-open mono" type="button" onclick="location.href='sitio.html#top'" aria-label="Ir a la tienda">TIENDA</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="calc-wrap">
+      <div class="section-head">
+        <p class="mono section-kicker">// HERRAMIENTA DE LABORATORIO</p>
+        <h2>CALCULADORA DE RECONSTITUCIÓN</h2>
+      </div>
+
+      <div class="calc-grid">
+        <!-- Entradas -->
+        <div class="calc-card">
+          <div class="calc-field">
+            <label for="calc-producto">Producto del catálogo (precarga mg)</label>
+            <select id="calc-producto"><option value="">— Personalizado —</option></select>
+          </div>
+          <div class="calc-row">
+            <div class="calc-field">
+              <label for="calc-mg">Péptido en el vial (mg)</label>
+              <input id="calc-mg" type="number" min="0" step="any" placeholder="5">
+            </div>
+            <div class="calc-field">
+              <label for="calc-agua">Agua bacteriostática (mL)</label>
+              <input id="calc-agua" type="number" min="0" step="any" value="2">
+            </div>
+          </div>
+          <div class="calc-row">
+            <div class="calc-field">
+              <label for="calc-dosis">Dosis deseada</label>
+              <input id="calc-dosis" type="number" min="0" step="any" placeholder="250">
+            </div>
+            <div class="calc-field">
+              <label for="calc-unidad-dosis">Unidad de dosis</label>
+              <select id="calc-unidad-dosis">
+                <option value="mcg" selected>mcg</option>
+                <option value="mg">mg</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="calc-jeringa">Tamaño de jeringa de insulina</label>
+            <select id="calc-jeringa">
+              <option value="1" selected>1 mL (100 UI)</option>
+              <option value="0.5">0.5 mL (50 UI)</option>
+              <option value="0.3">0.3 mL (30 UI)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="calc-guardar" type="button" style="border:none;cursor:pointer">▸ Guardar cálculo</button>
+        </div>
+
+        <!-- Resultados -->
+        <div class="calc-card">
+          <div class="res-grid">
+            <div class="res-item"><span>Extraer</span><strong id="res-unidades">—</strong></div>
+            <div class="res-item"><span>Volumen</span><strong id="res-ml">—</strong></div>
+            <div class="res-item"><span>Concentración</span><strong id="res-conc">—</strong></div>
+            <div class="res-item"><span>Dosis por vial</span><strong id="res-dosis-vial">—</strong></div>
+          </div>
+          <div class="syr">
+            <div class="syr-fill" id="syr-fill"></div>
+            <div class="syr-marker" id="syr-marker"></div>
+          </div>
+          <div class="syr-ticks" id="syr-ticks"></div>
+          <p class="calc-aviso">// Jeringa de insulina estándar: 100 UI = 1 mL. Herramienta de referencia para laboratorio — verifica siempre tus cálculos. Solo uso en investigación.</p>
+        </div>
+      </div>
+
+      <div class="calc-card" style="margin-top:1.6rem">
+        <h3 class="mono" style="color:var(--red);font-size:0.85rem;letter-spacing:0.18em;margin-bottom:0.8rem">// CÁLCULOS GUARDADOS</h3>
+        <div id="saved-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <p class="footer-brand">PEPTINATOR<span>MX</span> — calculadora de reconstitución</p>
+    <p class="footer-legal">Herramienta de referencia para investigación científica. No constituye instrucción médica ni de dosificación para uso humano.</p>
+    <p class="footer-copy">© 2026 PEPTINATOR MX<span id="visitas"></span></p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/visitas.js"></script>
+</body>
+</html>

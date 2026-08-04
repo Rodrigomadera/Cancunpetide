@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CancunPeptide | Age Verification</title>
+  <meta name="description" content="CancunPeptide — site intended for adults 18 and over. Age verification required.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/gate.css">
+</head>
+<body class="gate-body">
+
+  <div class="gate-bg" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <main class="gate-wrap">
+    <!-- ====== Verification ====== -->
+    <div class="gate-card" id="gate-card">
+      <p class="mono gate-kicker"><span class="blink-dot"></span> ACCESS_CONTROL // CANCÚN</p>
+      <h1 class="logo gate-logo">CANCUN<span class="logo-mx">PEPTIDE</span></h1>
+      <p class="gate-text">
+        This site contains compounds intended for scientific research
+        and is directed exclusively to <strong>adults 18 and over</strong>.
+      </p>
+      <p class="mono gate-question">// CONFIRM YOUR AGE TO CONTINUE</p>
+      <div class="gate-actions">
+        <button class="btn btn-primary gate-btn" id="btn-adult" type="button">▸ I'm 18 or older</button>
+        <button class="btn btn-ghost gate-btn" id="btn-minor" type="button">I'm under 18</button>
+      </div>
+      <p class="mono gate-legal">
+        By entering you accept that all products are for research use only.
+        They are not drugs, supplements or food.
+      </p>
+    </div>
+
+    <!-- ====== Access denied ====== -->
+    <div class="gate-card gate-denied" id="gate-denied" hidden>
+      <p class="mono gate-kicker denied-kicker"><span class="blink-dot"></span> ACCESS_DENIED</p>
+      <h1 class="gate-denied-title">ADULTS ONLY SITE</h1>
+      <p class="gate-text">
+        CancunPeptide is intended exclusively for people 18 and over.
+        We can't grant you access. Thanks for your honesty.
+      </p>
+      <p class="mono gate-legal">// SESSION TERMINATED — COME BACK WHEN YOU TURN 18</p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var btnAdult = document.getElementById("btn-adult");
+      var btnMinor = document.getElementById("btn-minor");
+      var card = document.getElementById("gate-card");
+      var denied = document.getElementById("gate-denied");
+
+      if (sessionStorage.getItem("cancunpeptide_age_ok") === "1") {
+        window.location.replace("sitio.html");
+        return;
+      }
+
+      btnAdult.addEventListener("click", function () {
+        sessionStorage.setItem("cancunpeptide_age_ok", "1");
+        window.location.href = "sitio.html";
+      });
+
+      btnMinor.addEventListener("click", function () {
+        card.hidden = true;
+        denied.hidden = false;
+      });
+    })();
+  </script>
+</body>
+</html>
