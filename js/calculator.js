@@ -20,15 +20,68 @@
   const KEY = "peptide_calc_saved";
 
   // --- catálogo: precargar mg según producto ---
+  // Presentaciones disponibles para la calculadora (se combinan con PRODUCTS,
+  // sin duplicar nombre+mg). Incluye gramajes que no se venden como producto.
+  const CALC_OPCIONES = [
+    { name: "Retatrutide", mg: 5 }, { name: "Retatrutide", mg: 10 }, { name: "Retatrutide", mg: 20 },
+    { name: "Retatrutide", mg: 30 }, { name: "Retatrutide", mg: 40 },
+    { name: "Tirzepatide", mg: 10 }, { name: "Tirzepatide", mg: 15 }, { name: "Tirzepatide", mg: 20 },
+    { name: "Tirzepatide", mg: 30 }, { name: "Tirzepatide", mg: 40 }, { name: "Tirzepatide", mg: 60 },
+    { name: "Semaglutide", mg: 2 }, { name: "Semaglutide", mg: 5 }, { name: "Semaglutide", mg: 10 },
+    { name: "Semaglutide", mg: 15 }, { name: "Semaglutide", mg: 20 },
+    { name: "Cagrilintide", mg: 5 }, { name: "Cagrilintide", mg: 10 },
+    { name: "CagriSema", mg: 10 },
+    { name: "AOD-9604", mg: 2 }, { name: "AOD-9604", mg: 5 }, { name: "AOD-9604", mg: 10 },
+    { name: "PT-141", mg: 10 },
+    { name: "BPC-157", mg: 5 }, { name: "BPC-157", mg: 10 },
+    { name: "TB-500", mg: 5 }, { name: "TB-500", mg: 10 },
+    { name: "GHK-Cu", mg: 50 }, { name: "GHK-Cu", mg: 100 },
+    { name: "Ipamorelin", mg: 5 }, { name: "Ipamorelin", mg: 10 },
+    { name: "CJC-1295 No-DAC", mg: 2 }, { name: "CJC-1295 No-DAC", mg: 5 }, { name: "CJC-1295 No-DAC", mg: 10 },
+    { name: "Sermorelin", mg: 5 }, { name: "Sermorelin", mg: 10 }, { name: "Sermorelin", mg: 15 },
+    { name: "Tesamorelin", mg: 5 }, { name: "Tesamorelin", mg: 10 },
+    { name: "MOTS-c", mg: 10 }, { name: "MOTS-c", mg: 40 },
+    { name: "5-Amino-1MQ", mg: 5 }, { name: "5-Amino-1MQ", mg: 10 },
+    { name: "KPV", mg: 5 }, { name: "KPV", mg: 10 },
+    { name: "Epithalon", mg: 10 }, { name: "Epithalon", mg: 20 }, { name: "Epithalon", mg: 50 },
+    { name: "NAD+", mg: 500 }, { name: "NAD+", mg: 1000 },
+    { name: "Selank", mg: 5 }, { name: "Selank", mg: 10 },
+    { name: "Semax", mg: 5 }, { name: "Semax", mg: 10 },
+    { name: "Oxytocin", mg: 5 }, { name: "Oxytocin", mg: 10 },
+    { name: "Melanotan 1", mg: 10 },
+    { name: "Melanotan 2", mg: 10 },
+    { name: "Thymosin Alpha-1", mg: 5 }, { name: "Thymosin Alpha-1", mg: 10 },
+    { name: "DSIP", mg: 5 }, { name: "DSIP", mg: 10 },
+    { name: "Kisspeptin-10", mg: 5 }, { name: "Kisspeptin-10", mg: 10 },
+    { name: "BPC-157 + TB-500", mg: 10 }, { name: "BPC-157 + TB-500", mg: 20 },
+    { name: "GLOW", mg: 70 },
+    { name: "KLOW", mg: 80 }
+  ];
+
   function cargarProductos() {
-    if (typeof PRODUCTS === "undefined") return;
-    PRODUCTS.forEach(p => {
-      const m = p.spec.match(/([\d.]+)\s*mg/i);
-      if (!m) return; // accesorios en mL no aplican
+    const norm = s => s.toLowerCase().replace(/\s*\(.*?\)\s*/g, "").trim();
+    const vistos = new Set();
+    const lista = [];
+    const agregar = (name, mg) => {
+      const key = norm(name) + "|" + mg;
+      if (vistos.has(key)) return;
+      vistos.add(key);
+      lista.push({ name, mg });
+    };
+    if (typeof PRODUCTS !== "undefined") {
+      PRODUCTS.forEach(p => {
+        const m = p.spec.match(/([\d.]+)\s*mg/i);
+        if (!m) return; // accesorios en mL no aplican
+        agregar(p.name, parseFloat(m[1]));
+      });
+    }
+    CALC_OPCIONES.forEach(o => agregar(o.name, o.mg));
+    lista.sort((a, b) => a.name.localeCompare(b.name, "es") || a.mg - b.mg);
+    lista.forEach(o => {
       const opt = document.createElement("option");
-      opt.value = m[1];
-      opt.textContent = `${p.name} ${p.spec}`;
-      opt.dataset.name = `${p.name} ${p.spec}`;
+      opt.value = o.mg;
+      opt.textContent = `${o.name} ${o.mg} mg`;
+      opt.dataset.name = `${o.name} ${o.mg} mg`;
       selProducto.appendChild(opt);
     });
   }
